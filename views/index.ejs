@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial App</title>
+</head>
+<body>
+    <% if (user) { %>
+        <%= user.username %># <%= user.discriminator %> 
+        <a href="/auth/logout">Logout</a>
+        <div class="guilds">
+            <ul>
+            <% user.guilds.forEach(guild => { %>
+                <% if (guild.owner == true) { %>
+                    <li>
+                        <div class="server-info">
+                            <% if (guild.icon == null) { %>
+                                <img width="20px" height="20px" src="https://play-lh.googleusercontent.com/0oO5sAneb9lJP6l8c6DH4aj6f85qNpplQVHmPmbbBxAukDnlO7DarDW0b-kEIHa8SQ"></img>
+                            <% } else { %>
+                            <img width="20px" height="20px" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>"></img>
+                            <% } %>
+                            <%= guild.name %>
+                        </div>
+                    </li>
+                <% } %>
+            <% }); %>
+            </ul>
+        </div>
+        <style>
+            ul {
+                display: inline;
+
+            }
+            .server-info {
+                margin-top: 5px;
+                margin-bottom: 10px;
+                border-style: solid;
+                border-radius: 10px;
+                max-width: 30%;
+                min-width: 10%;
+            }
+            img {
+                border-style: solid;
+                border-radius: 20px;
+                margin: 6px 5px 3px 10px;
+            }
+        </style>
+    <% } else { %>
+    <a href="/auth/login">Login</a>
+    <% } %>
+</body>
+</html>
